@@ -1,0 +1,4 @@
+* @zgchuck
+*.js @zgchuck
+*.yml @zgchuck
+/public/ @zgchuck
