@@ -15,8 +15,7 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-	  Dinamo
-          Learn React
+          Dinamo Learn React
         </a>
       </header>
     </div>
