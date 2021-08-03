@@ -27,9 +27,19 @@ jobs:
       - run: npm test -- --coverage
         env:
           CI: true
+      - name: Upload Test Coverage
+        uses: actions/upload-artifact@v1
+        with:
+          name: code-coverage #ime artefakta kad ga hoces skinuti
+          path: coverage
       - name: Build Project
         if: github.event_name == 'push' #github je context
         run: npm run build
+      - name: Upload Build Folder
+        uses: actions/upload-artifact@v1
+        with:
+          name: build-coverage #ime artefakta kad ga hoces skinuti
+          path: build
       - name: Deploy to Staging
         if: github.event_name == 'push'
         run: npx surge --project ./build --domain crescendo-prj.surge.sh #npx surge instalira i koristi surge u istom koraku, inace moras prvo instalirati surge
