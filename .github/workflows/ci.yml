@@ -32,15 +32,24 @@ jobs:
         with:
           name: code-coverage #ime artefakta kad ga hoces skinuti
           path: coverage
+
       - name: Build Project
         if: github.event_name == 'push' #github je context
         run: npm run build
+
       - name: Upload Build Folder
         if: github.event_name == 'push'
         uses: actions/upload-artifact@v1
         with:
-          name: build-coverage #ime artefakta kad ga hoces skinuti
+          name: build #ime artefakta kad ga hoces skinuti
           path: build
+
+      - name: ZIP Assets
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        run: |
+                zip -r build.zip ./build
+                zip -r coverage.zip ./coverage
+
       - name: Create a Release
         if: github.event_name == 'push' && github.ref == 'refs/heads/master'
         run: npx semantic-release
