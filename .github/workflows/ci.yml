@@ -1,9 +1,9 @@
 name: CI
 on:
   pull_request:
-    branches: [develop,master] #kada je otvoren pull_request za develop branch
+    branches: [develop, master] #kada je otvoren pull_request za develop branch
   push:
-    branches: [develop,master] #kada je push u develop branch
+    branches: [develop, master] #kada je push u develop branch
 
 jobs:
   build:
@@ -45,7 +45,7 @@ jobs:
         if: github.event_name == 'push' && github.ref == 'refs/heads/master'
         run: npm semantic-release
         env:
-                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Deploy to Staging
         if: github.event_name == 'push'
         run: npx surge --project ./build --domain crescendo-prj.surge.sh #npx surge instalira i koristi surge u istom koraku, inace moras prvo instalirati surge
