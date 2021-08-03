@@ -15,7 +15,7 @@ jobs:
         with:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }} #match any package-lock.json file in our repositry
-          restore-key: |
+          restore-keys: |
             ${{ runner.os }}-node-
 
       - name: Use NodeJS
