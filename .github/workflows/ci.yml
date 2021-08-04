@@ -59,9 +59,21 @@ jobs:
                                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
                         - name: Deploy to staging
-                          if: github.event_name == 'push'
-                          run: npx surge --project ./build --domain crescendo-prj.surge.sh #instaliraj i koristi surge u jednoj liniji
+                          if: github.event_name == 'push' && github.ref == 'refs/head/develop'
+                          run: npx surge --project ./build --domain dev-app.surge.sh #instaliraj i koristi surge u jednoj liniji
                           env:
                                 SURGE_LOGIN: ${{ secrets.SURGE_LOGIN }}
                                 SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
 
+
+                        - name: Deploy to production
+                          if: github.event_name == 'push' && github.ref == 'refs/head/master'
+                          run: npx surge --project ./build --domain app.surge.sh #instaliraj i koristi surge u jednoj liniji
+                          env:
+                                SURGE_LOGIN: ${{ secrets.SURGE_LOGIN }}
+                                SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
+                        - name: Upload Coverage Reports
+                          if: github.event_name == 'push' && github.ref == 'refs/head/master'
+                          run: npx codecov
+                          env:
+                                  CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
